@@ -1,11 +1,17 @@
 package com.kalpit00.cab_book_driver.service;
 
+import com.kalpit00.cab_book_driver.constant.AppConstant;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CabLocationService {
+
+    @Autowired
+    private KafkaTemplate<String,Object> kafkaTemplate;
     public boolean updateLocation(String location) {
-        System.out.println("Send coordinate using Kafka here");
+        kafkaTemplate.send(AppConstant.CAB_LOCATION, location);
         return true;
     }
 
